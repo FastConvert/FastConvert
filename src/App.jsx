@@ -30,7 +30,7 @@ function App() {
 
         {/* Email capture */}
         <form
-          action="https://formspree.io/f/xjkeqodv"  // Formspree'de yeni form açınca linki buraya değiştireceğiz
+          action="https://formspree.io/f/xjkeqodv"
           method="POST"
           className="w-full max-w-md bg-white shadow rounded-lg p-6"
         >
