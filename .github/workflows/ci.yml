@@ -1,31 +1,26 @@
-name: CI
+name: CI Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
-    name: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm ci
 
       - name: Build
         run: npm run build
-        env:
-          CI: true
