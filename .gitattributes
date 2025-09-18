@@ -1,0 +1,12 @@
+# Tüm metin dosyalarında satır sonlarını LF'ye zorla
+* text=auto eol=lf
+
+# İkili dosyalar (resimler vs.) normalize edilmesin
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.mp4 binary
+*.mp3 binary

@@ -1,11 +1,18 @@
-function App() {
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Dmca from "./pages/Dmca";
+
+function Home() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-50 text-gray-800">
       {/* Header */}
       <header className="py-6 bg-white shadow">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl font-bold text-blue-600">FastConvert</h1>
-          <p className="text-sm text-gray-500">No upload — your files stay on your device</p>
+          <p className="text-sm text-gray-500">
+            No upload — your files stay on your device
+          </p>
         </div>
       </header>
 
@@ -17,24 +24,35 @@ function App() {
 
         {/* Tool buttons */}
         <div className="grid gap-4 sm:grid-cols-3 mb-10 w-full max-w-lg">
-          <a href="/jpg-to-pdf" className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold">
+          <a
+            href="/jpg-to-pdf"
+            className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold"
+          >
             JPG → PDF
           </a>
-          <a href="/video-to-mp3" className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold">
+          <a
+            href="/video-to-mp3"
+            className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold"
+          >
             Video → MP3
           </a>
-          <a href="/pdf-tools" className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold">
+          <a
+            href="/pdf-tools"
+            className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold"
+          >
             PDF Tools
           </a>
         </div>
 
         {/* Email capture */}
         <form
-          action="https://formspree.io/f/xjkeqodv"  // Formspree'de yeni form açınca linki buraya değiştireceğiz
+          action="https://formspree.io/f/xjkeqodv"
           method="POST"
           className="w-full max-w-md bg-white shadow rounded-lg p-6"
         >
-          <label className="block mb-2 text-left font-medium">Stay updated:</label>
+          <label className="block mb-2 text-left font-medium">
+            Stay updated:
+          </label>
           <input
             type="email"
             name="email"
@@ -53,12 +71,25 @@ function App() {
 
       {/* Footer */}
       <footer className="py-6 bg-gray-100 text-center text-sm text-gray-500">
-        <a href="/privacy" className="mx-2 hover:underline">Privacy</a>
-        <a href="/terms" className="mx-2 hover:underline">Terms</a>
-        <a href="/dmca" className="mx-2 hover:underline">DMCA</a>
+        <Link to="/privacy" className="mx-2 hover:underline">Privacy</Link>
+        <Link to="/terms" className="mx-2 hover:underline">Terms</Link>
+        <Link to="/dmca" className="mx-2 hover:underline">DMCA</Link>
       </footer>
     </div>
-  )
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/dmca" element={<Dmca />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
