@@ -9,15 +9,15 @@
 
   <!-- Legal Sayfalar -->
   <url>
-    <loc>https://fastconvert.dev/privacy</loc>
+    <loc>https://fastconvert.dev/privacy.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fastconvert.dev/terms</loc>
+    <loc>https://fastconvert.dev/terms.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fastconvert.dev/dmca</loc>
+    <loc>https://fastconvert.dev/dmca.html</loc>
     <priority>0.8</priority>
   </url>
 
