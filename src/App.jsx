@@ -1,94 +1,34 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import Dmca from "./pages/Dmca";
-
-function Home() {
-  return (
-    <div className="min-h-screen flex flex-col justify-between bg-gray-50 text-gray-800">
-      {/* Header */}
-      <header className="py-6 bg-white shadow">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-blue-600">FastConvert</h1>
-          <p className="text-sm text-gray-500">
-            No upload — your files stay on your device
-          </p>
-        </div>
-      </header>
-
-      {/* Main content */}
-      <main className="flex-grow container mx-auto px-4 flex flex-col items-center justify-center text-center">
-        <h2 className="text-2xl font-semibold mb-6">
-          Convert your files instantly, securely, and for free
-        </h2>
-
-        {/* Tool buttons */}
-        <div className="grid gap-4 sm:grid-cols-3 mb-10 w-full max-w-lg">
-          <a
-            href="/jpg-to-pdf"
-            className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold"
-          >
-            JPG → PDF
-          </a>
-          <a
-            href="/video-to-mp3"
-            className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold"
-          >
-            Video → MP3
-          </a>
-          <a
-            href="/pdf-tools"
-            className="p-4 bg-blue-100 hover:bg-blue-200 rounded-lg font-semibold"
-          >
-            PDF Tools
-          </a>
-        </div>
-
-        {/* Email capture */}
-        <form
-          action="https://formspree.io/f/xjkeqodv"
-          method="POST"
-          className="w-full max-w-md bg-white shadow rounded-lg p-6"
-        >
-          <label className="block mb-2 text-left font-medium">
-            Stay updated:
-          </label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            required
-            className="w-full border px-3 py-2 rounded mb-4"
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-          >
-            Subscribe
-          </button>
-        </form>
-      </main>
-
-      {/* Footer */}
-      <footer className="py-6 bg-gray-100 text-center text-sm text-gray-500">
-        <Link to="/privacy" className="mx-2 hover:underline">Privacy</Link>
-        <Link to="/terms" className="mx-2 hover:underline">Terms</Link>
-        <Link to="/dmca" className="mx-2 hover:underline">DMCA</Link>
-      </footer>
-    </div>
-  );
-}
-
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/dmca" element={<Dmca />} />
-      </Routes>
-    </Router>
+    <>
+      <header className="text-center py-6 bg-gray-100 shadow-md">
+        <h1 className="text-3xl font-bold text-gray-800">FastConvert</h1>
+        <p className="text-gray-600">Free & Secure File Conversion Tools</p>
+      </header>
+
+      <main className="container mx-auto py-12 text-center">
+        <h2 className="text-2xl font-semibold mb-4">Convert JPG to PDF</h2>
+        <p className="text-gray-700 mb-6">
+          Upload your files below (Day-2 will enable full functionality).
+        </p>
+        <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Select JPG Files
+        </button>
+      </main>
+
+      <footer className="text-center py-6 bg-gray-100 border-t">
+        <p className="mb-2">
+          <a href="/privacy.html" className="text-blue-600 hover:underline">
+            Privacy Policy
+          </a>{" "}
+          |{" "}
+          <a href="/terms.html" className="text-blue-600 hover:underline">
+            Terms of Service
+          </a>
+        </p>
+        <p className="text-gray-600">© 2025 FastConvert</p>
+      </footer>
+    </>
   );
 }
 
