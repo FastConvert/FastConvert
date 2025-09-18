@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PDFDocument } from "pdf-lib";
 
-function App() {
+function JpgToPdf() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -80,51 +80,31 @@ function App() {
   };
 
   return (
-    <>
-      <header className="text-center py-6 bg-gray-100 shadow-md">
-        <h1 className="text-3xl font-bold text-gray-800">FastConvert</h1>
-        <p className="text-gray-600">Free & Secure File Conversion Tools</p>
-      </header>
+    <div className="container mx-auto py-12 text-center">
+      <h2 className="text-2xl font-semibold mb-4">Convert JPG to PDF</h2>
+      <p className="text-gray-700 mb-6">
+        Upload your JPG files (max 10, each ≤10MB). Files will be compressed
+        before PDF export.
+      </p>
 
-      <main className="container mx-auto py-12 text-center">
-        <h2 className="text-2xl font-semibold mb-4">Convert JPG to PDF</h2>
-        <p className="text-gray-700 mb-6">
-          Upload your JPG files (max 10, each ≤10MB). Files will be compressed
-          before PDF export.
-        </p>
+      <input
+        type="file"
+        accept="image/jpeg"
+        multiple
+        onChange={handleFiles}
+        className="hidden"
+        id="jpgInput"
+      />
+      <label
+        htmlFor="jpgInput"
+        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer"
+      >
+        {loading ? "Processing..." : "Select JPG Files"}
+      </label>
 
-        <input
-          type="file"
-          accept="image/jpeg"
-          multiple
-          onChange={handleFiles}
-          className="hidden"
-          id="fileInput"
-        />
-        <label
-          htmlFor="fileInput"
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer"
-        >
-          {loading ? "Processing..." : "Select JPG Files"}
-        </label>
-
-        {error && <p className="text-red-600 mt-4">{error}</p>}
-      </main>
-
-      <footer className="text-center py-6 bg-gray-100 border-t">
-        <p className="mb-2">
-          <a href="/privacy.html" className="text-blue-600 hover:underline">
-            Privacy Policy
-          </a>{" "}
-          |{" "}
-          <a href="/terms.html" className="text-blue-600 hover:underline">
-            Terms of Service
-          </a>
-        </p>
-        <p className="text-gray-600">© 2025 FastConvert</p>
-      </footer>
-    </>
+      {error && <p className="text-red-600 mt-4">{error}</p>}
+    </div>
   );
 }
 
-export default App;
+export default JpgToPdf;
