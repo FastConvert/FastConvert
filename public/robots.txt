@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fastconvert.com/sitemap.xml
+Sitemap: https://fastconvert.dev/sitemap.xml
