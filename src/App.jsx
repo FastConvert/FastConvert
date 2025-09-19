@@ -5,7 +5,22 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Resmi compress eden yardımcı fonksiyon (canvas)
+  // Limits
+  const MAX_FILES = 10;
+  const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
+  const MAX_TOTAL_SIZE = 100 * 1024 * 1024; // 100 MB
+
+  // Friendly error strings
+  const ERRORS = {
+    TOO_MANY: "Oops, you can only upload up to 10 files at once.",
+    TOO_BIG: "Oops, one of your files is too large (max 25 MB each).",
+    TOTAL_TOO_BIG: "Oops, the total size of your files is too big (max 100 MB).",
+    NO_FILES: "Oops, please choose at least one JPG file to continue.",
+    WRONG_TYPE: "Oops, only JPG/JPEG images are supported for now.",
+    GENERIC: "Oops, something went wrong. Please try again.",
+  };
+
+  // Compress helper (canvas)
   const compressImage = (file) =>
     new Promise((resolve, reject) => {
       const img = new Image();
@@ -19,11 +34,11 @@ function App() {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         canvas.toBlob(
           (blob) => {
-            URL.revokeObjectURL(img.src); // bellek temizliği
+            URL.revokeObjectURL(img.src);
             resolve(blob);
           },
           "image/jpeg",
-          0.7 // kalite
+          0.7
         );
       };
       img.onerror = reject;
@@ -33,13 +48,29 @@ function App() {
   const handleFiles = async (e) => {
     const files = Array.from(e.target.files);
 
-    // limit kontrolü (10 resim)
-    if (files.length > 10) {
-      setError("Max 10 resim yükleyebilirsiniz.");
+    if (!files.length) {
+      setError(ERRORS.NO_FILES);
       return;
     }
-    if (files.some((f) => f.size > 10 * 1024 * 1024)) {
-      setError("Her resim en fazla 10MB olabilir.");
+
+    if (files.length > MAX_FILES) {
+      setError(ERRORS.TOO_MANY);
+      return;
+    }
+
+    if (files.some((f) => !f.type.startsWith("image/jpeg"))) {
+      setError(ERRORS.WRONG_TYPE);
+      return;
+    }
+
+    if (files.some((f) => f.size > MAX_FILE_SIZE)) {
+      setError(ERRORS.TOO_BIG);
+      return;
+    }
+
+    const totalSize = files.reduce((acc, f) => acc + f.size, 0);
+    if (totalSize > MAX_TOTAL_SIZE) {
+      setError(ERRORS.TOTAL_TOO_BIG);
       return;
     }
 
@@ -66,14 +97,16 @@ function App() {
       const pdfBytes = await pdfDoc.save();
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
+
       const a = document.createElement("a");
       a.href = url;
       a.download = "converted.pdf";
       a.click();
-      URL.revokeObjectURL(url); // PDF linki serbest bırak
+
+      URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
-      setError("Bir hata oluştu, lütfen tekrar deneyin.");
+      setError(ERRORS.GENERIC);
     } finally {
       setLoading(false);
     }
@@ -89,8 +122,8 @@ function App() {
       <main className="container mx-auto py-12 text-center">
         <h2 className="text-2xl font-semibold mb-4">Convert JPG to PDF</h2>
         <p className="text-gray-700 mb-6">
-          Upload your JPG files (max 10, each ≤10MB). Files will be compressed
-          before PDF export.
+          Upload up to 10 JPG files (each ≤25MB, total ≤100MB). Files will be
+          compressed before PDF export.
         </p>
 
         <input
